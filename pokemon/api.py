@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from pokeapi import client
-from pokeapi import schema
+from pokemon import schema
+from pokemon import service
 
 router = APIRouter()
 
@@ -11,7 +11,18 @@ async def root() -> dict:
 
 
 @router.get("/pokemon_card/{name}")
-async def get_pokemon_card(name: str) -> schema.Pokemon:
-    pokemon_client = client.PokemonClient()
-    pokemon_card = pokemon_client.get_pokemon_by_name(name=name)
+async def get_pokemon_card(name: str) -> schema.PokemonCard:
+    pokemon_card = service.get_pokemon_card(name)
     return pokemon_card
+
+
+@router.get("/pokemon_battle/{first_pokemon}/vs/{second_pokemon}")
+async def get_pokemon_battle_result(
+    first_pokemon: str, second_pokemon: str
+) -> schema.BattleResult:
+    battle_result = service.perform_pokemon_battle(
+        pokemon_name_1=first_pokemon,
+        pokemon_name_2=second_pokemon,
+    )
+    return battle_result
+    

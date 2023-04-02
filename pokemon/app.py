@@ -1,5 +1,6 @@
-import api
 from fastapi import FastAPI
+
+from pokemon import api
 
 def create_app() -> FastAPI:
     app = FastAPI()

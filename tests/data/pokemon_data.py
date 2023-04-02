@@ -11905,6 +11905,19 @@ pikachu_data = {
    "weight":60
 }
 
+pikachu_card_data = {
+   'name': 'pikachu', 
+   'height': 4, 
+   'weight': 60, 
+   'stats': [
+      {'details': {'name': 'hp'}, 'base_stat': 35}, 
+      {'details': {'name': 'attack'}, 'base_stat': 55}, 
+      {'details': {'name': 'defense'}, 'base_stat': 40}, 
+      {'details': {'name': 'special-attack'}, 'base_stat': 50}, 
+      {'details': {'name': 'special-defense'}, 'base_stat': 50}, 
+      {'details': {'name': 'speed'}, 'base_stat': 90}
+   ]
+}
 
 eevee_data = {
    "abilities":[
@@ -22053,4 +22066,32 @@ eevee_data = {
       }
    ],
    "weight":65
+}
+
+eevee_card_data = {
+   'name': 'eevee', 
+   'height': 3, 
+   'weight': 65, 
+   'stats': [
+      {'details': {'name': 'hp'}, 'base_stat': 55}, 
+      {'details': {'name': 'attack'}, 'base_stat': 55}, 
+      {'details': {'name': 'defense'}, 'base_stat': 50}, 
+      {'details': {'name': 'special-attack'}, 'base_stat': 45}, 
+      {'details': {'name': 'special-defense'}, 'base_stat': 65}, 
+      {'details': {'name': 'speed'}, 'base_stat': 55}
+   ]
+}
+
+eevee_vs_pikachu_battle_result = {
+   'pokemon_1':{'name':'eevee','height':3,'weight':65,'stats':[{'details':{'name':'hp'},'base_stat':55},{'details':{'name':'attack'},'base_stat':55},{'details':{'name':'defense'},'base_stat':50},{'details':{'name':'special-attack'},'base_stat':45},{'details':{'name':'special-defense'},'base_stat':65},{'details':{'name':'speed'},'base_stat':55}]},
+   'pokemon_2':{'name':'pikachu','height':4,'weight':60,'stats':[{'details':{'name':'hp'},'base_stat':35},{'details':{'name':'attack'},'base_stat':55},{'details':{'name':'defense'},'base_stat':40},{'details':{'name':'special-attack'},'base_stat':50},{'details':{'name':'special-defense'},'base_stat':50},{'details':{'name':'speed'},'base_stat':90}]},
+   'winner':{'name':'pikachu','height':4,'weight':60,'stats':[{'details':{'name':'hp'},'base_stat':35},{'details':{'name':'attack'},'base_stat':55},{'details':{'name':'defense'},'base_stat':40},{'details':{'name':'special-attack'},'base_stat':50},{'details':{'name':'special-defense'},'base_stat':50},{'details':{'name':'speed'},'base_stat':90}]},
+   'message':'Battle is over, winner is pikachu'
+}
+
+pikachu_vs_eevee_battle_result = {
+   'pokemon_1':{'name':'pikachu','height':4,'weight':60,'stats':[{'details':{'name':'hp'},'base_stat':35},{'details':{'name':'attack'},'base_stat':55},{'details':{'name':'defense'},'base_stat':40},{'details':{'name':'special-attack'},'base_stat':50},{'details':{'name':'special-defense'},'base_stat':50},{'details':{'name':'speed'},'base_stat':90}]},
+   'pokemon_2':{'name':'eevee','height':3,'weight':65,'stats':[{'details':{'name':'hp'},'base_stat':55},{'details':{'name':'attack'},'base_stat':55},{'details':{'name':'defense'},'base_stat':50},{'details':{'name':'special-attack'},'base_stat':45},{'details':{'name':'special-defense'},'base_stat':65},{'details':{'name':'speed'},'base_stat':55}]},
+   'winner':{'name':'pikachu','height':4,'weight':60,'stats':[{'details':{'name':'hp'},'base_stat':35},{'details':{'name':'attack'},'base_stat':55},{'details':{'name':'defense'},'base_stat':40},{'details':{'name':'special-attack'},'base_stat':50},{'details':{'name':'special-defense'},'base_stat':50},{'details':{'name':'speed'},'base_stat':90}]},
+   'message':'Battle is over, winner is pikachu'
 }
