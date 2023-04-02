@@ -110,8 +110,8 @@ class TestApiPokemonCard:
         # assert
         assert response.status_code == 500
         assert response.json().get('detail') == "Failed to execute remote request"
-
     
+
     def test_validation_error_raises_http_exception(self, monkeypatch) -> None:
         # arrange
         pokemon_card_mock = Mock(
@@ -130,6 +130,24 @@ class TestApiPokemonCard:
         assert response.status_code == 500
         assert response.json().get('detail') == "Failed to execute remote request"
 
+
+    def test_raises_resource_not_found(self, monkeypatch) -> None:
+        # arrange
+        pokemon_card_mock = Mock(
+            side_effect=pokeapi_exc.ResourceNotFound,
+        )
+
+        monkeypatch.setattr(
+            'pokemon.service.get_pokemon_card',
+            pokemon_card_mock,
+        )
+        
+        # act
+        response = client.get(f"/pokemon_card/random")
+
+        # assert
+        assert response.status_code == 404
+        assert response.json().get('detail') == "Pokemon name: random"
 
 class TestApiPokemonCard:
     _pokemon_battle = schema.BattleResult(
@@ -343,3 +361,22 @@ class TestApiPokemonCard:
         # assert
         assert response.status_code == 500
         assert response.json().get('detail') == "Failed to execute remote request"
+    
+
+    def test_raises_resource_not_found(self, monkeypatch) -> None:
+        # arrange
+        pokemon_battle_mock = Mock(
+            side_effect=pokeapi_exc.ResourceNotFound(f'Pokemon name: random'),
+        )
+
+        monkeypatch.setattr(
+            'pokemon.service.perform_pokemon_battle',
+            pokemon_battle_mock,
+        )
+        
+        # act
+        response = client.get(f"/pokemon_battle/random/vs/pikachu")
+
+        # assert
+        assert response.status_code == 404
+        assert response.json().get('detail') == "Pokemon name: random"

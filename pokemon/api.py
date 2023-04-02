@@ -15,6 +15,11 @@ async def root() -> dict:
 async def get_pokemon_card(name: str) -> schema.PokemonCard:
     try:
         pokemon_card = service.get_pokemon_card(name)
+    except pokeapi_exc.ResourceNotFound as e:
+        raise HTTPException(
+            status_code=404, 
+            detail=str(e),
+        )
     except pokeapi_exc.ServerError:
         raise HTTPException(
             status_code=503, 
@@ -37,6 +42,12 @@ async def get_pokemon_battle_result(
         battle_result = service.perform_pokemon_battle(
             pokemon_name_1=first_pokemon,
             pokemon_name_2=second_pokemon,
+        )
+    except pokeapi_exc.ResourceNotFound as e:
+        print(str(e))
+        raise HTTPException(
+            status_code=404, 
+            detail=str(e),
         )
     except pokeapi_exc.ServerError:
         raise HTTPException(
