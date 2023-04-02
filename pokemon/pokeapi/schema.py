@@ -4,8 +4,9 @@ from pydantic import Field
 class StatDetails(BaseModel):
     name: str = Field(alias='name')
 
+
 class Stat(BaseModel):
-    name: StatDetails = Field(alias='stat')
+    details: StatDetails = Field(alias='stat')
     base_stat: int = Field(alias='base_stat')
     effort: int = Field(alias='effort')
 
