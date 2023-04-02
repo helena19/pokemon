@@ -2,6 +2,7 @@ import pytest
 import requests_mock
 
 from pokemon.pokeapi import client
+from pokemon.pokeapi import exceptions as exc
 from tests.data import pokemon_data
 
 class TestClient:
@@ -33,3 +34,51 @@ class TestClient:
         assert pokemon_card.height == pokemon_data['height']
         assert pokemon_card.weight == pokemon_data['weight']
         assert len(pokemon_card.stats) == 6
+    
+
+    def test_server_error_raises(self) -> None:
+        # arrange
+        pokemon_client = client.PokemonClient()
+
+        # act & assert
+        with requests_mock.mock() as m:
+            m.get(
+                f'https://pokeapi.co/api/v2/pokemon/pikachu',
+                status_code=500,
+            )
+        
+            with pytest.raises(exc.ServerError):
+                pokemon_client.get_pokemon_by_name('pikachu')
+
+
+    def test_client_error_raises(self) -> None:
+        # arrange
+        pokemon_client = client.PokemonClient()
+
+        # act & assert
+        with requests_mock.mock() as m:
+            m.get(
+                f'https://pokeapi.co/api/v2/pokemon/pikachu',
+                status_code=400,
+            )
+        
+            with pytest.raises(exc.ClientError):
+                pokemon_client.get_pokemon_by_name('pikachu')
+
+
+    def test_validation_error_raises(self) -> None:
+        # arrange
+        pokemon_client = client.PokemonClient()
+
+        # act & assert
+        with requests_mock.mock() as m:
+            m.get(
+                f'https://pokeapi.co/api/v2/pokemon/pikachu',
+                status_code=200,
+                json={
+                    'invalid': 'data',
+                }
+            )
+        
+            with pytest.raises(exc.ValidationError):
+                pokemon_client.get_pokemon_by_name('pikachu')
