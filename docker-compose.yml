@@ -1,0 +1,42 @@
+version: '3.4'
+
+networks:
+  pokemonapp-backend:
+      driver: bridge
+
+services:
+  app:
+    container_name: pokemonapp-app
+    image: "pokemonapp/backend:latest"
+    volumes:
+      - ./:/usr/src/app
+      - .:/app
+    env_file:
+      - .env
+    tty: true
+    networks:
+      - pokemonapp-backend
+    ports:
+      - ${APP_PORT}:8000
+    stdin_open: true
+    command: [
+      "uvicorn",
+      "pokemon.app:app",
+      "--reload",
+    ]
+    restart: on-failure:1
+
+  app-tests:
+    container_name: pokemonapp-tests
+    image: "pokemonapp/backend:latest"
+    volumes:
+      - ./:/usr/src/app
+      - .:/app
+    env_file:
+      - .env
+    networks:
+      - pokemonapp-backend
+    command: [
+      "pytest",
+      "tests/"
+    ]
