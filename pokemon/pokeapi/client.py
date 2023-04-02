@@ -13,7 +13,9 @@ class PokemonClient():
         url = f'{self.base_url}/{self.api_version}/pokemon/{name}'
         response = requests.get(url)
 
-        if 400 <= response.status_code <= 499:
+        if response.status_code == 404:
+            raise exc.ResourceNotFound(f'Pokemon name: {name}')
+        elif 400 <= response.status_code <= 499:
             raise exc.ClientError(response.reason)
         elif 500 <= response.status_code <= 599:
             raise exc.ServerError(response.reason)

@@ -82,3 +82,18 @@ class TestClient:
         
             with pytest.raises(exc.ValidationError):
                 pokemon_client.get_pokemon_by_name('pikachu')
+
+
+    def test_resource_not_found(self) -> None:
+        # arrange
+        pokemon_client = client.PokemonClient()
+
+        # act & assert
+        with requests_mock.mock() as m:
+            m.get(
+                f'https://pokeapi.co/api/v2/pokemon/unknown',
+                status_code=404,
+            )
+        
+            with pytest.raises(exc.ResourceNotFound):
+                pokemon_client.get_pokemon_by_name('unknown')
