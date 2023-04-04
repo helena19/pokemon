@@ -1,5 +1,20 @@
 # Pokemon api integration
 
+## Local run
+
+Inside the pokemon directory:
+```bash
+python3 -m pip install --user virtualenv   # install venv
+python3 -m venv env   # create venv
+source env/bin/activate    # activate venv
+pip install -r requirements.txt    # install requirements
+uvicorn pokemon.app:app --reload    # run the app
+
+pytest tests    # run tests
+```
+
+Go to http://127.0.0.1:8000 to view the app.
+
 ## Commands
 You need `docker` and `docker compose` to run the project.
 
